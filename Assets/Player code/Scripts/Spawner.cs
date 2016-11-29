@@ -225,7 +225,8 @@ public class Spawner : MonoBehaviour
 	// spawns an enemy based on the enemy level that you selected
 	private void spawnEnemy()
 	{
-		GameObject Enemy = (GameObject) Instantiate(Enemies[enemyLevel], new Vector3(-20+Random.Range(-20.0f,20.0f), 1.4f, -20+Random.Range(-20.0f,20.0f) ), Quaternion.identity);
+
+		GameObject Enemy = (GameObject) Instantiate(Enemies[enemyLevel], randomSpawn(), Quaternion.identity);
 		Enemy.SendMessage("setName", SpawnID);
 		Enemy.GetComponent<EnemyScript> ().setId (idTracker);
 		idTracker++;
@@ -270,5 +271,32 @@ public class Spawner : MonoBehaviour
 	public void enableTrigger()
 	{
 		Spawn = true;
+	}
+
+	public Vector3 randomSpawn(){
+		float x = 0;
+		float z = 0;
+		int a = Random.Range (0, 4);
+		if (a == 0) {
+			z = -230;
+			x = Random.Range (-130, 120);
+		}
+		if (a == 1) {
+			z = 230;
+			x = Random.Range (-130, 120);
+		}
+
+		if (a == 2) {
+			x=-130;
+			z = Random.Range (-230, 230);
+		}
+
+		if (a == 3){
+			x = 120;
+			z = Random.Range (-230, 230);
+		}
+
+		return new Vector3 (x, 1.4f, z);
+			
 	}
 }
